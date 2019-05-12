@@ -1,7 +1,13 @@
-.dropdown-toggle {
+.dropdown {
     cursor: pointer;
+    margin-left: 120%;
 }
 
 .dropdown-item {
     cursor: pointer;
 }
+
+.container {
+    padding-left: 50px;
+  }
+
