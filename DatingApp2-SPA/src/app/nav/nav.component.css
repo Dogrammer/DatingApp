@@ -9,5 +9,17 @@
 
 .container {
     padding-left: 50px;
-  }
+  
+}
 
+img {
+    max-height: 50px;
+    border: 2px solid white;
+    margin-left: -40%;
+}
+
+form {
+    margin-left: 70%;
+    display: inline;
+        
+}
