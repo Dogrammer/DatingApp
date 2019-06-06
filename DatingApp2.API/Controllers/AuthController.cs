@@ -38,14 +38,14 @@ namespace DatingApp2.API.Controllers
         return BadRequest("Username already exists");
 
       //store to database 
-      var userToCreate = new User
-      {
-        Username = userForRegisterDto.Username
-      };
+      var userToCreate = _mapper.Map<User>(userForRegisterDto);  // Map<destination>(source);
 
       var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
-      return StatusCode(201);
+      var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
+
+      return CreatedAtRoute("GetUser", new {controler = "Users", id = createdUser}, userToReturn); 
+      //CreatedAtRoute vrati UserDetailedDto i lokaciju tog usera (localhost:5000/api/Users/id) 
     }
 
     [HttpPost("login")]
@@ -60,7 +60,7 @@ namespace DatingApp2.API.Controllers
       {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepository.Id.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepository.Username)
-            };
+      };
 
       var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
